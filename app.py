@@ -25,6 +25,16 @@ def index():
     conn.close()
     return render_template('bookslist.html', books=books, booknum=booknum, authornum=authornum )
 
+@app.route('/authors')
+def authorslist():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT authors.author_id, first_name, last_name, count(books.book_id) as book_num FROM authors inner join books on books.author_id = authors.author_id group by authors.author_id, first_name, last_name ORDER BY first_name, last_name")
+    authors = cursor.fetchall()
+
+    conn.close()
+    return render_template('authorslist.html', authors=authors )
+
 @app.route('/add', methods=['GET', 'POST'])
 def add_book():
     if request.method == 'POST':

@@ -36,12 +36,13 @@
           </div>
           <div class="card-body">
             <h1 class="card-title pricing-card-title">
-
+              <a href="authors">
               {% for n in authornum %}
               
               {{ n['num'] }}
 
               {% endfor %}
+            </a>
 
             </h1>
             <a class="w-100 btn  btn-outline-primary" href="/addAuthor">Add Author</a>
