@@ -23,16 +23,23 @@ def add_book():
     if request.method == 'POST':
         title = request.form['title']
         author = request.form['author_id']
+        isbn = request.form['isbn']
         
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO books (title, author_id) VALUES (?, ?)", (title, author))
+        cursor.execute("INSERT INTO books (title, author_id, isbn) VALUES (?, ?, ?)", (title, author, isbn))
         conn.commit()
         conn.close()
         
         return redirect(url_for('index'))
     
-    return render_template('add_book.html')
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM authors order by first_name")
+    authors = cursor.fetchall()
+    conn.close()
+    
+    return render_template('add_book.html', authors=authors)
 
 if __name__ == '__main__':
     app.run(debug=True)
