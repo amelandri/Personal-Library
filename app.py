@@ -15,8 +15,15 @@ def index():
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM books inner join authors on books.author_id = authors.author_id")
     books = cursor.fetchall()
+
+    cursor.execute("SELECT count(*) as num FROM books")
+    booknum = cursor.fetchall()
+
+    cursor.execute("SELECT count(*) as num FROM authors")
+    authornum = cursor.fetchall()
+
     conn.close()
-    return render_template('bookslist.html', books=books)
+    return render_template('bookslist.html', books=books, booknum=booknum, authornum=authornum )
 
 @app.route('/add', methods=['GET', 'POST'])
 def add_book():
