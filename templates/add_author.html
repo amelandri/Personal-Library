@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  {% include 'head.html' %}
+</head>
+
+<body>
+
+  {% include 'nav.html' %}
+
+  <div class="container my-5">
+    <div class="col-lg-12 px-0">
+      <h1>Add author</h1>
+    </div>
+  </div>
+
+  <div class="container my-5">
+    <div class="col-lg-12 px-0">
+
+      <form method="post" action="/addAuthor">
+        <div class="mb-3">
+          <label for="first_name" class="form-label">First name:</label>
+          <input type="text" id="first_name" name="first_name" required class="form-control">
+        </div>
+        <div class="mb-3">
+          <label for="last_name" class="form-label">Last name:</label>
+          <input type="text" id="last_name" name="last_name" required class="form-control">
+        </div>
+
+        <input type="submit" value="Add Auhtor" class="btn btn-primary">
+
+      </form>
+
+    </div>
+  </div>
+
+  {% include 'footer.html' %}
+
+</body>
+
+</html>

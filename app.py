@@ -5,7 +5,7 @@ import sqlite3
 app = Flask(__name__)
 
 def get_db_connection():
-    conn = sqlite3.connect('personallibrary.db')
+    conn = sqlite3.connect('database/personallibrary.db')
     conn.row_factory = sqlite3.Row
     return conn
 
@@ -47,6 +47,22 @@ def add_book():
     conn.close()
     
     return render_template('add_book.html', authors=authors)
+
+@app.route('/addAuthor', methods=['GET', 'POST'])
+def add_author():
+    if request.method == 'POST':
+        first_name = request.form['first_name']
+        last_name = request.form['last_name']
+        
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("INSERT INTO authors (first_name, last_name ) VALUES (?, ?)", (first_name, last_name))
+        conn.commit()
+        conn.close()
+        
+        return redirect(url_for('index'))
+    
+    return render_template('add_author.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
