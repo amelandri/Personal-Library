@@ -1,2 +1,3 @@
 .venv/
 personallibrary.db
+__pycache__/app.cpython-311.pyc
