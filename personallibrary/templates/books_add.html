@@ -1,0 +1,37 @@
+{% extends 'base/base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Add new book{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="col-lg-12 px-0">
+
+      <form method="post" action="/books/add">
+        <div class="mb-3">
+          <label for="title" class="form-label">Title:</label>
+          <input type="text" id="title" name="title" required class="form-control">
+        </div>
+        <div class="mb-3">
+          <label for="author_id" class="form-label">Author:</label>
+
+          <select name="author_id" id="author_id" class="form-control">
+            {% for author in authors %}
+            <option value="{{ author['author_id'] }}">{{ author['first_name'] }} {{ author['last_name'] }}</option>
+            {% endfor %}
+          </select>
+
+        </div>
+        <div class="mb-3">
+          <label for="isbn" class="form-label">ISBN:</label>
+          <input type="text" id="isbn" name="isbn" class="form-control">
+        </div>
+
+        <input type="submit" value="Add book" class="btn btn-primary">
+
+      </form>
+
+    </div>
+  </div>
+{% endblock %}

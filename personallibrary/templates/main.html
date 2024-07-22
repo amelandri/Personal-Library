@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base/base.html' %}
 
 {% block header %}
   <h1>{% block title %}Personal Library{% endblock %}</h1>
@@ -16,15 +16,10 @@
           </div>
           <div class="card-body">
             <h1 class="card-title pricing-card-title">
-              
-              {% for n in booknum %}
-              
-              {{ n['num'] }}
-
-              {% endfor %}
-            
+              <a href="/books/list">
+              {% for n in booknum %}{{ n['num'] }}{% endfor %}
+              </a>
             </h1>
-            <a class="w-100 btn  btn-outline-primary" href="/add">Add Book</a>
           </div>
         </div>
       </div>
@@ -35,16 +30,10 @@
           </div>
           <div class="card-body">
             <h1 class="card-title pricing-card-title">
-              <a href="authors">
-              {% for n in authornum %}
-              
-              {{ n['num'] }}
-
-              {% endfor %}
-            </a>
-
+              <a href="/authors/list">
+              {% for n in authornum %}{{ n['num'] }}{% endfor %}
+              </a>
             </h1>
-            <a class="w-100 btn  btn-outline-primary" href="/addAuthor">Add Author</a>
           </div>
         </div>
       </div>
