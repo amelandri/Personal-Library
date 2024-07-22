@@ -6,7 +6,7 @@
 
 {% block content %}
 
-<div class="container my-5">
+<div class="container my-5 dashboard">
 
     <div class="row row-cols-1 row-cols-md-4 mb-3 text-center">
       <div class="col">
@@ -15,7 +15,7 @@
             <h4 class="my-0 fw-normal">Books</h4>
           </div>
           <div class="card-body">
-            <h1 class="card-title pricing-card-title">
+            <h1 class="card-title">
               <a href="/books/list">
               {% for n in booknum %}{{ n['num'] }}{% endfor %}
               </a>
