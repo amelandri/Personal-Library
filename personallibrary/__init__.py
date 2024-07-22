@@ -1,7 +1,8 @@
 import os
 
-from flask import Flask
+from flask import Flask, render_template, request, redirect, url_for
 
+from personallibrary.db import get_db
 
 def create_app(test_config=None):
     # create and configure the app
@@ -23,17 +24,29 @@ def create_app(test_config=None):
         os.makedirs(app.instance_path)
     except OSError:
         pass
+    
+    @app.route('/')
+    def index():
+        conn = get_db()
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM books inner join authors on books.author_id = authors.author_id")
+        books = cursor.fetchall()
 
-    # a simple page that says hello
-    @app.route('/hello')
-    def hello():
-        return 'Hello, World!'
+        cursor.execute("SELECT count(*) as num FROM books")
+        booknum = cursor.fetchall()
+
+        cursor.execute("SELECT count(*) as num FROM authors")
+        authornum = cursor.fetchall()
+
+        conn.close()
+        return render_template('main.html', books=books, booknum=booknum, authornum=authornum )
 
     from . import db
     db.init_app(app)
-    
+
     from . import auth
     app.register_blueprint(auth.bp)
+
 
     return app
 
